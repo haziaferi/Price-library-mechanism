@@ -188,6 +188,19 @@ class RankingTest {
         assertEquals(listOf(248L, 265L, 282L), rows.map { it.unitPriceCents })
     }
 
+    // SPEC:R17 — two branches of one chain keep separate prices, each ranked on its own.
+    @Test
+    fun branchesOfOneChainRankSeparately() {
+        val book = PriceBook(
+            packs = listOf(cookieQ600),
+            prices = listOf(price("q600", 159, "chain-north"), price("q600", 171, "chain-south")),
+        )
+        val rows = Ranking.acrossStores("Cookies Q", book, TODAY)
+
+        assertEquals(listOf("chain-north", "chain-south"), rows.map { it.storeId })
+        assertEquals(listOf(159L, 171L), rows.map { it.offer.total.cents })
+    }
+
     // SPEC:R36 — packs typed in the aisle, never saved, rank as R27 ranks saved ones.
     @Test
     fun unsavedPacksRankTheSameWay() {
