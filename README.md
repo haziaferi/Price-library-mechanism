@@ -14,7 +14,7 @@ JDK 21 and an Android SDK with platform 37 are needed. `check` runs the tests; `
 
 ## How changes land
 
-Every change reaches `main` through a pull request that the owner reviews and merges (squash). The CI gate (`./gradlew check assemble`) and CodeQL must pass first; the repository's ruleset enforces pull requests and CodeQL. Version tags start when Chatelaine moves to JitPack releases (SPEC rule R08).
+Every change reaches `main` through a pull request that the owner reviews and merges (squash). The CI gate (`./gradlew check assemble`) and CodeQL must pass first; the repository's ruleset enforces all three: pull requests, the `Gate` check and CodeQL. Version tags start when Chatelaine moves to JitPack releases (SPEC rule R08).
 
 ## Licence
 
