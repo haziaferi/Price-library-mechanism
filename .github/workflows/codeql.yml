@@ -1,7 +1,14 @@
+# Advanced CodeQL setup, MedicAll's codeql.yml re-typed for this library. Kotlin needs the code built:
+# the default setup's "none" build mode cannot read Kotlin ("No Java/Kotlin code found"), so java-kotlin
+# builds with Gradle. "actions" scans these workflow files. Works only while the repository's CodeQL
+# default setup is off (Settings → Code security). The repository's ruleset requires this analysis
+# before a pull request merges. Actions are pinned to commit hashes; the comment beside each names its
+# version.
 name: CodeQL
 
 on:
   pull_request:
+    branches: [main]
   push:
     branches: [main]
   schedule:
@@ -12,27 +19,52 @@ permissions:
 
 jobs:
   analyze:
-    name: Analyze (java-kotlin)
+    name: Analyze (${{ matrix.language }})
     runs-on: ubuntu-latest
     timeout-minutes: 30
     permissions:
       contents: read
+      actions: read
       security-events: write
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - language: java-kotlin
+            build-mode: manual
+          - language: actions
+            build-mode: none
     steps:
-      - uses: actions/checkout@v7
-      - uses: actions/setup-java@v6
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - if: matrix.build-mode == 'manual'
+        uses: actions/setup-java@b843ebf9b913146b38da2eaa7aeddf76074ae1ad # v6.1.0
         with:
           distribution: temurin
-          java-version: 21
-      - uses: gradle/actions/setup-gradle@v6
+          java-version: "21"
+
+      - if: matrix.build-mode == 'manual'
+        uses: gradle/actions/setup-gradle@8da46b539cd8fe6ab27ca75128919a18d757604c # v6.4.1
+
+      - uses: github/codeql-action/init@1bd86f2fdb4b86187fa4059f16f31a3202acc9ea # v4.39.4
         with:
-          cache-disabled: true
-      - uses: github/codeql-action/init@v4
-        with:
-          languages: java-kotlin
-          build-mode: manual
+          languages: ${{ matrix.language }}
+          build-mode: ${{ matrix.build-mode }}
+
+      # Compiling is enough for CodeQL; no jar or AAR is packaged. Without --no-build-cache a restored
+      # cache answers the compile tasks FROM-CACHE, kotlinc never runs, and the analysis sees no code.
       - name: Build
-        run: ./gradlew assemble --no-build-cache --no-daemon --rerun-tasks
-      - uses: github/codeql-action/analyze@v4
+        if: matrix.build-mode == 'manual'
+        run: ./gradlew --no-build-cache compileAndroidMain compileKotlinJvm
+
+      - uses: github/codeql-action/analyze@1bd86f2fdb4b86187fa4059f16f31a3202acc9ea # v4.39.4
         with:
-          category: "/language:java-kotlin"
+          category: "/language:${{ matrix.language }}"
+
+      # A green analysis of an empty database proves nothing: fail unless the Kotlin sources are in it.
+      - name: Kotlin sources were extracted
+        if: matrix.language == 'java-kotlin'
+        run: |
+          n=$(unzip -l "$RUNNER_TEMP/codeql_databases/java/src.zip" | grep -c '/src/commonMain/.*\.kt$' || true)
+          echo "Kotlin source files in the database: $n"
+          test "$n" -gt 0
