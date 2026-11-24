@@ -102,11 +102,11 @@ Shoppers compare packs of different sizes and prices, and the cheapest-looking p
 
 ### D-R03 · Library shape
 
-**Rule:** The library is Kotlin Multiplatform common code built for Android and the JVM desktop. It holds no storage, no screens and no tags: the host app passes in packs, prices, promotions and stores, and gets rankings and totals back.
+**Rule:** The library is Kotlin Multiplatform common code built for Android and the JVM desktop, plus a JavaScript (Node) target that no host uses, so the shared code is compiled against the common standard library and the tests run on a second platform. It holds no storage, no screens and no tags: the host app passes in packs, prices, promotions and stores, and gets rankings and totals back.
 
 **Why:** Each host app keeps its own database, sync and look; the library stays the one tested place for the arithmetic.
 
-**Acceptance:** The library's code has no dependency on Android, a database or a UI toolkit, and its tests run on the JVM.
+**Acceptance:** The library's code has no dependency on Android, a database or a UI toolkit; the common-code compile runs (it is skipped when every target is JVM-based), and the tests pass on the JVM and on Node.
 
 **Not:** Storage interfaces with an in-memory version: the host already owns storage (Chatelaine's spec, rules 48 and 49).
 
@@ -213,7 +213,7 @@ Shoppers compare packs of different sizes and prices, and the cheapest-looking p
 
 ### D-R14 · Units shared with the host
 
-**Rule:** The units of R10 are part of the library's public interface, and the host app's stock quantities (Chatelaine's Pantry) use them, so stock and prices compare without conversion.
+**Rule:** The units of R10 are part of the library's public interface, and the host app's stock quantities (Chatelaine's Pantry) use them, so stock and prices compare without conversion. A quantity is 1 base unit or more; stock at zero is not a quantity, since the host turns a finished consumable into a wish (Chatelaine's spec, rule 143).
 
 **Acceptance:** The host app can build a quantity from the library's unit type and compare it with a pack's size.
 
@@ -466,7 +466,7 @@ Shoppers compare packs of different sizes and prices, and the cheapest-looking p
 ## Acceptance list
 
 - R02 · Jobs and how often: Each job has a test that runs it end to end through the library's public interface.
-- R03 · Library shape: The library's code has no dependency on Android, a database or a UI toolkit, and its tests run on the JVM.
+- R03 · Library shape: The library's code has no dependency on Android, a database or a UI toolkit; the common-code compile runs (it is skipped when every target is JVM-based), and the tests pass on the JVM and on Node.
 - R04 · Whole numbers: The cookie ranking of R27 comes out exact with no floating-point type anywhere in the comparison path.
 - R05 · Build versions: The build declares Kotlin 2.4.10 and a JVM 21 toolchain, and Chatelaine builds against it without a version override.
 - R06 · Record ids: No public function of the library generates an id.

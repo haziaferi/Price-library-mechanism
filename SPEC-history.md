@@ -42,3 +42,5 @@ Not a source of current rules: `SPEC.md` is. One line per change, newest at the 
 - 2026-11-24 · R38 · added · line totals · owner
 - 2026-11-24 · R39 · added · discount on a whole receipt · owner
 - 2026-11-24 · R40 · added · not in v1 · owner
+- 2026-11-24 · R03 · changed · JS (Node) check target added · owner
+- 2026-11-24 · R14 · changed · zero stock is not a quantity; the host makes a wish · owner
