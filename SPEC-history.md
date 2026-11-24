@@ -1,0 +1,44 @@
+# Price-compare spec history
+
+Not a source of current rules: `SPEC.md` is. One line per change, newest at the bottom. Retired wording is in git.
+
+- 2026-11-24 · spec · added · first draft from interview rounds 1 and 2 (all defaults accepted) · owner
+- 2026-11-24 · R01 · added · one user; Chatelaine first host; the savings app can reuse receipt arithmetic · owner
+- 2026-11-24 · R02 · added · jobs and how often · owner
+- 2026-11-24 · R03 · added · KMP common code, no storage, screens or tags · owner
+- 2026-11-24 · R04 · added · whole cents and base units, cross-multiplied · owner
+- 2026-11-24 · R05 · added · Kotlin 2.4.10, JVM 21 · owner
+- 2026-11-24 · R06 · added · ids from the host app · owner
+- 2026-11-24 · R07 · added · GPL-3.0, public repository · owner
+- 2026-11-24 · R08 · added · local link, then tagged JitPack releases · owner
+- 2026-11-24 · R09 · added · package com.hazia.pricecompare · builder
+- 2026-11-24 · R10 · added · metric units in four dimensions · owner
+- 2026-11-24 · R11 · added · one dimension per pack · owner
+- 2026-11-24 · R12 · added · one-level multipacks · owner
+- 2026-11-24 · R13 · added · loose goods · owner
+- 2026-11-24 · R14 · added · units shared with the host · owner
+- 2026-11-24 · R15 · added · reference unit with a per-tag override · owner
+- 2026-11-24 · R16 · added · every price kept; corrections in place · owner
+- 2026-11-24 · R17 · added · a store is one branch · owner
+- 2026-11-24 · R18 · added · currency code on every price, euro in v1 · owner
+- 2026-11-24 · R19 · added · carried by a store; the newer of mark and price wins · owner
+- 2026-11-24 · R20 · added · deleting a product or a store · owner
+- 2026-11-24 · R21 · added · "% off", "2 x 1", "3 x 2" · owner
+- 2026-11-24 · R22 · added · percentage off from shelf price, rounded half up · owner
+- 2026-11-24 · R23 · added · promotion dates · owner
+- 2026-11-24 · R24 · added · promotion and regular price · owner
+- 2026-11-24 · R25 · added · no stacking on one pack · owner
+- 2026-11-24 · R27 · added · unit-price ranking, the cookie example · owner
+- 2026-11-24 · R28 · added · one row per pack · owner
+- 2026-11-24 · R29 · added · ties to the displayed cent, larger pack first · owner
+- 2026-11-24 · R30 · added · the store a row shows · owner
+- 2026-11-24 · R31 · added · multibuys rank by bundle price · owner
+- 2026-11-24 · R32 · added · ranking date passed by the host · owner
+- 2026-11-24 · R33 · added · prices older than 60 days flagged · owner
+- 2026-11-24 · R34 · added · displayed values · owner
+- 2026-11-24 · R35 · added · hidden packs · owner
+- 2026-11-24 · R36 · added · quick comparison of unsaved packs · owner
+- 2026-11-24 · R37 · added · one product across stores · owner
+- 2026-11-24 · R38 · added · line totals · owner
+- 2026-11-24 · R39 · added · discount on a whole receipt · owner
+- 2026-11-24 · R40 · added · not in v1 · owner
