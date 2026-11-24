@@ -213,7 +213,7 @@ Shoppers compare packs of different sizes and prices, and the cheapest-looking p
 
 ### D-R14 · Units shared with the host
 
-**Rule:** The units of R10 are part of the library's public interface, and the host app's stock quantities (Chatelaine's Pantry) use them, so stock and prices compare without conversion.
+**Rule:** The units of R10 are part of the library's public interface, and the host app's stock quantities (Chatelaine's Pantry) use them, so stock and prices compare without conversion. A quantity is 1 base unit or more; stock at zero is not a quantity, since the host turns a finished consumable into a wish (Chatelaine's spec, rule 143).
 
 **Acceptance:** The host app can build a quantity from the library's unit type and compare it with a pack's size.
 
